@@ -76,7 +76,7 @@ function chartSVG(rows, type) {
   const day = p => new Date(p.at).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
   return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${VITALS[type][0]} trend, ${pts.length} readings from ${day(pts[0])} to ${day(pts[pts.length - 1])}">
     ${[hi, lo].map(v => `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="#E2E4E6" stroke-dasharray="4 5"/><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end" font-size="12" fill="#868D93">${v}</text>`).join("")}
-    ${type === "bp" ? line("b", "#3FA677") : ""}${line("a", "#0E5F3E")}
+    ${type === "bp" ? line("b", "#5B8DF8") : ""}${line("a", "#1746B8")}
     <text x="${L}" y="${H - 6}" font-size="12" fill="#868D93">${day(pts[0])}</text><text x="${W - R}" y="${H - 6}" text-anchor="end" font-size="12" fill="#868D93">${day(pts[pts.length - 1])}</text>
   </svg>${type === "bp" ? `<p class="small muted">Dark line: top number · Light line: bottom number</p>` : ""}`;
 }

@@ -12,18 +12,28 @@
   fill("[data-h-em]", DATA.hours.emergency);
   fill("[data-h-out]", DATA.hours.outpatient);
   fill("[data-h-vis]", DATA.hours.visiting);
-  if (H.emergency || H.phone) $("#em-text").textContent = `Emergency: ${H.emergency || H.phone} · open 24 hours`;
   $("#year").textContent = new Date().getFullYear();
   if (H.phone) $$("[data-tel]").forEach(e => (e.href = tel(H.phone)));
   if (H.emergency || H.phone) $$("[data-tel-em]").forEach(e => (e.href = tel(H.emergency || H.phone)));
 
-  // hide the placeholder emblem if a real photo was added at images/hero.jpg
-  const img = new Image(); img.onload = () => ($("#emblem").hidden = true); img.src = "images/hero.jpg";
+  fill("[data-name]", H.name);
+  fill("#st-dept", DATA.departments.length); fill("#w-dept", DATA.departments.length);
+  fill("#st-home", DATA.services.length); fill("#w-home", DATA.services.length);
 
-  $("#depts").innerHTML = DATA.departments.map(d => `<div class="dept"><span class="ic">${svgIcon(d.icon)}</span><b>${esc(d.name)}</b><span>${esc(d.blurb)}</span><a href="#appointment" data-dept="${esc(d.name)}">Book an appointment →</a></div>`).join("");
+  // Real photos replace the drawings automatically when these files exist:
+  //   images/hero.png (doctor, ideally a cut-out) · images/doctors.png (second doctor) · images/hospital.jpg (building or ward)
+  const swap = (src, fn) => { const im = new Image(); im.onload = () => fn(im); im.src = src; };
+  swap("images/hero.png", im => { im.alt = "One of our doctors"; $("#hero-figure").replaceChildren(im); });
+  swap("images/doctors.png", im => { im.alt = "Our medical staff"; $("#why-figure").replaceChildren(im); });
+  swap("images/hospital.jpg", im => { const t = $("#tour"); t.style.backgroundImage = `url(${im.src})`; t.classList.add("has"); });
+
+  const cards = DATA.departments.map((d, i) => `<article class="svc"><span class="num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span><h3>${svgIcon(d.icon)}${esc(d.name)}</h3><p>${esc(d.blurb)}</p><div class="links"><a href="#appointment" data-dept="${esc(d.name)}">Make an appointment</a><a href="#ask">Ask</a></div></article>`);
+  cards.splice(1, 0, `<article class="svc feature"><span class="num" aria-hidden="true">${esc(H.name)}</span><p>From a first consultation and tests to treatment, with care and attention to detail.</p></article>`);
+  cards.push(`<article class="svc wide"><h3>Not sure which department you need? Start with General medicine, or ask a nurse first.</h3><div class="cta"><a class="btn" href="#appointment">Book appointment <span class="ico">${svgIcon("arrow")}</span></a><a class="btn white" href="#ask">Ask a nurse <span class="ico">${svgIcon("chat")}</span></a></div></article>`);
+  $("#svcs").innerHTML = cards.join("");
+  $("#svcs").addEventListener("click", e => { const x = e.target.closest("[data-dept]"); if (x) $("#a-dept").value = x.dataset.dept; });
   $("#a-dept").innerHTML = `<option value="">Choose a department</option>` + DATA.departments.map(d => `<option>${esc(d.name)}</option>`).join("");
-  $("#depts").addEventListener("click", e => { const a = e.target.closest("[data-dept]"); if (a) $("#a-dept").value = a.dataset.dept; });
-  $("#hc-choice").innerHTML = DATA.services.map((s, i) => `<label><input type="radio" name="svc" value="${s.id}" ${i === 0 ? "checked" : ""}><span style="margin:0;font-weight:600;font-size:17px;color:inherit">${esc(s.name)}<span>${esc(s.blurb)}</span></span></label>`).join("");
+  $("#hc-choice").innerHTML = DATA.services.map((s, i) => `<label><input type="radio" name="svc" value="${s.id}" ${i === 0 ? "checked" : ""}><span>${esc(s.name)}<span>${esc(s.blurb)}</span></span></label>`).join("");
 
   const val = id => $("#" + id).value.trim();
   const show = (form, html, err) => { $(".out", form).innerHTML = `<div class="msg ${err ? "err" : ""}" ${err ? 'role="alert"' : ""}>${html}</div>`; };

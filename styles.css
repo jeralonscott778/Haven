@@ -1,9 +1,9 @@
 @font-face{font-family:"Outfit";src:url("fonts/outfit-latin-wght-normal.woff2") format("woff2");font-weight:100 900;font-display:swap}
 
 :root{
-  --bg:#F2F7F1; --ink:#11261C; --muted:#52645A; --line:#DAE6DC; --white:#fff;
-  --green:#147D52; --green-d:#0E5F3E; --steel:#8FD3B0; --steel-d:#1F8A5B; --steel-l:#D8EFE0; --deep:#0E5F3E;
-  --cyan:#FFC64A; --sun:#FFC64A; --orange:#F0803A; --red:#D2462F; --amber:#9A6700; --ok:#147D52;
+  --bg:#EEF3FF; --ink:#0E1A3A; --muted:#4F5B78; --line:#D8E1F5; --white:#fff;
+  --green:#2563EB; --green-d:#1746B8; --steel:#A9C4FF; --steel-d:#2F6BEA; --steel-l:#DFE9FF; --deep:#1746B8;
+  --cyan:#FFC64A; --sun:#FFC64A; --orange:#F0803A; --red:#D2462F; --amber:#9A6700; --ok:#2563EB;
   --r:26px;
 }
 *{box-sizing:border-box}
@@ -369,51 +369,51 @@ svg{display:block}
 .ico.cyan{background:var(--orange);color:#fff}
 .go.solid{background:var(--green)}
 .go.solid .ico{color:var(--green)}
-.go{box-shadow:inset 0 0 0 1px #BFD8C6}
+.go{box-shadow:inset 0 0 0 1px #BCCBEE}
 .hl{background:#FFE7A3}
 .hl .ico{box-shadow:none;color:var(--green-d)}
 .sec-label{color:var(--green)}
-.hero{background:linear-gradient(160deg,#0E5F3E 0%,#147D52 45%,#2E9A6A 100%)}
+.hero{background:linear-gradient(160deg,#1746B8 0%,#2563EB 45%,#4C82F7 100%)}
 .hero .cloud{display:none!important}
-.hero-haze{left:auto;right:-8%;top:-30%;width:54%;height:auto;aspect-ratio:1;background:#1B8F5F;filter:none;opacity:.7}
-.hero::after{content:"";position:absolute;z-index:-1;left:-10%;bottom:-46%;width:44%;aspect-ratio:1;border-radius:50%;background:#0E5F3E;opacity:.6}
+.hero-haze{left:auto;right:-8%;top:-30%;width:54%;height:auto;aspect-ratio:1;background:#3B77F5;filter:none;opacity:.7}
+.hero::after{content:"";position:absolute;z-index:-1;left:-10%;bottom:-46%;width:44%;aspect-ratio:1;border-radius:50%;background:#1746B8;opacity:.6}
 .hero::before{content:"";position:absolute;z-index:-1;right:12%;bottom:14%;width:clamp(70px,9vw,130px);aspect-ratio:1;border-radius:50%;background:var(--sun)}
 .hero h1{text-shadow:none}
 .hero h1 .sun{background:var(--sun);color:var(--green-d);box-shadow:none}
-.hero .sub{text-shadow:none;color:#E4F4EA}
+.hero .sub{text-shadow:none;color:#E3ECFF}
 .hero .dash{border-color:rgba(255,255,255,.5)}
 .hero .go{box-shadow:none}
 .hero .go .ico{background:var(--green);color:#fff}
 .hero-tag b{background:var(--orange)}
-.curve{stroke:#B7D3BE}
-.c-dark{background:linear-gradient(200deg,#147D52,#0B4A30 75%)}
+.curve{stroke:#BCCBEE}
+.c-dark{background:linear-gradient(200deg,#2563EB,#12368F 75%)}
 .c-phone{background:var(--steel-l)}
-.mini{background:var(--green);box-shadow:0 0 0 5px #fff,0 18px 30px -10px rgba(14,95,62,.5)}
+.mini{background:var(--green);box-shadow:0 0 0 5px #fff,0 18px 30px -10px rgba(23,70,184,.5)}
 .c-home{background:#FFE7A3}
 .c-home .dash{border-color:#fff}
 .c-home .ico.xl{color:var(--green-d)}
 .c-steel{background:var(--steel-d)}
-.c-sky{background:linear-gradient(180deg,#2E9A6A,#9BDAB6)}
-.c-sky .figure{color:var(--green-d);box-shadow:0 14px 26px -8px rgba(14,95,62,.5)}
-.svc-art{background:linear-gradient(170deg,#147D52,#3FA677)}
+.c-sky{background:linear-gradient(180deg,#4C82F7,#B5CCFF)}
+.c-sky .figure{color:var(--green-d);box-shadow:0 14px 26px -8px rgba(23,70,184,.5)}
+.svc-art{background:linear-gradient(170deg,#2563EB,#5B8DF8)}
 .svc-art .inner{background:linear-gradient(180deg,rgba(255,255,255,.8),rgba(255,255,255,.2))}
-.svc-art .inner::after{background:repeating-linear-gradient(0deg,rgba(20,125,82,.3) 0 2px,transparent 2px 14px)}
+.svc-art .inner::after{background:repeating-linear-gradient(0deg,rgba(37,99,235,.3) 0 2px,transparent 2px 14px)}
 .tabs-row .pill[aria-selected="true"]{background:var(--green);color:#fff}
 .dots i.on{background:var(--green);box-shadow:0 0 0 2.5px var(--bg),0 0 0 3.5px var(--green)}
 .slide-body .ico.xl{background:var(--steel-l);color:var(--green-d)}
-.ring{border-color:#B7D3BE}
-.phone{background:linear-gradient(180deg,#2E9A6A,#147D52);box-shadow:0 0 0 12px var(--steel-l),0 40px 60px -30px rgba(14,95,62,.6)}
-.phone .dock{background:linear-gradient(180deg,#0E5F3E,#0B4A30)}
-.cloud{filter:drop-shadow(0 10px 18px rgba(14,95,62,.16))}
+.ring{border-color:#BCCBEE}
+.phone{background:linear-gradient(180deg,#4C82F7,#2563EB);box-shadow:0 0 0 12px var(--steel-l),0 40px 60px -30px rgba(23,70,184,.6)}
+.phone .dock{background:linear-gradient(180deg,#1746B8,#12368F)}
+.cloud{filter:drop-shadow(0 10px 18px rgba(23,70,184,.16))}
 .notes.r b{color:var(--green)}
 .info .box .ico{background:var(--steel-l);box-shadow:none;color:var(--green-d)}
 .info .box.em{background:var(--green-d)}
 .info .box.em .ico{background:#fff;color:var(--red)}
 .end .sky-pill{background:var(--green)}
 .end-row{border:0}
-.totop{box-shadow:inset 0 0 0 1px #B7D3BE;color:var(--green-d)}
+.totop{box-shadow:inset 0 0 0 1px #BCCBEE;color:var(--green-d)}
 /* app pages */
-.greet{background:linear-gradient(150deg,#0E5F3E,#147D52 55%,#2E9A6A)}
+.greet{background:linear-gradient(150deg,#1746B8,#2563EB 55%,#4C82F7)}
 .greet .cloud{background:var(--sun);filter:none;width:64px!important;height:64px!important;border-radius:50%}
 .greet .cloud::before,.greet .cloud::after{display:none}
 .tab[aria-selected="true"]{background:var(--green);color:#fff}
@@ -421,14 +421,14 @@ svg{display:block}
 .tab[aria-selected="true"] .n{background:#fff;color:var(--green-d)}
 .seg button[aria-pressed="true"]{background:var(--green)}
 .tick[aria-pressed="true"]{background:var(--green);color:#fff}
-.tick{box-shadow:inset 0 0 0 1.5px #B7D3BE}
+.tick{box-shadow:inset 0 0 0 1.5px #BCCBEE}
 .track i.on{background:var(--green)}
 .bub.me{background:var(--green)}
-.svc-pick button[aria-pressed="true"]{background:var(--green);color:#DDF2E5}
+.svc-pick button[aria-pressed="true"]{background:var(--green);color:#E3ECFF}
 .svc-pick button .ico{color:var(--green-d)}
 .tagx.steel{background:var(--steel-l);color:var(--green-d)}
 .tagx.ok{background:var(--steel-l);color:var(--green-d)}
-.note{background:var(--steel-l);color:#0E4A31}
+.note{background:var(--steel-l);color:#12368F}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green)}
 .checkrow input{accent-color:var(--green)}
 :focus-visible{outline-color:var(--green-d)}

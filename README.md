@@ -3,7 +3,10 @@
 Pages
 - `index.html` + `site.css`  public hospital site. Appointments, care at home, ask a nurse and
   request tracking all work here WITHOUT signing in.
-- To add a real photo to the home page, save it as `images/hero.jpg`.
+- Photos: the home page shows a drawn doctor until you add real photos. Create an `images` folder and save:
+  `images/hero.png` (main doctor, ideally a cut-out with transparent background),
+  `images/doctors.png` (doctor for the "Why choose us" panel), `images/hospital.jpg` (building or ward).
+  They replace the drawings automatically.
 - `app.html`    optional "My Care" record for regular patients (phone number + 6-digit PIN)
 - `team.html`   care-team dashboard (staff PIN)
 - `api/app.js`  the whole backend, one Vercel function

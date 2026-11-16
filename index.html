@@ -5,89 +5,126 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Haven Hospital</title>
 <meta name="description" content="Book an appointment, request care at home, ask a nurse a question and find our departments, opening hours and location.">
-<meta name="theme-color" content="#0E5F3E">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23147D52'/%3E%3Cpath d='M13 7h6v6h6v6h-6v6h-6v-6H7v-6h6z' fill='%23fff'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#2563EB">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%232563EB'/%3E%3Cpath d='M13 7h6v6h6v6h-6v6h-6v-6H7v-6h6z' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="preload" href="fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
 
-<div class="site-top">
-  <div class="util"><div class="wrap">
-    <a class="em" data-tel-em href="#contact"><i></i><span id="em-text">Emergency department open 24 hours</span></a>
-    <div class="util-right">
-      <a data-tel href="#contact"><svg><use href="#i-phone"/></svg><span data-phone>Call us</span></a>
-      <a href="#visitors"><svg><use href="#i-clock"/></svg>Opening hours</a>
-      <a href="#contact"><svg><use href="#i-pin"/></svg>Find us</a>
-    </div>
-  </div></div>
-  <header class="head"><div class="wrap">
-    <a class="brand" href="#top"><span class="cross" aria-hidden="true"></span><span><span data-full>Haven Hospital</span><small>Caring for our community</small></span></a>
-    <nav class="menu" aria-label="Main">
-      <a href="#top">Home</a>
-      <a href="#departments">Departments</a>
-      <a href="#homecare">Care at home</a>
-      <a href="#visitors">Patients &amp; visitors</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <a class="btn" href="#appointment">Book an appointment</a>
-  </div></header>
-</div>
+<!-- Placeholder doctor drawing, used until real photos are added (see README) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="doctor" viewBox="0 0 400 470">
+    <path d="M22 470C22 356 84 304 158 286l42 46 42-46c74 18 136 70 136 184z" fill="#fff"/>
+    <path d="M158 286l42 62 42-62-20-18h-44z" fill="#A9C4FF"/>
+    <path d="M158 286l42 62-34 40-36-86z" fill="#E9EFFF"/><path d="M242 286l-42 62 34 40 36-86z" fill="#E9EFFF"/>
+    <path d="M176 232h48v46q-24 26-48 0z" fill="#7B4A30"/>
+    <ellipse cx="200" cy="166" rx="64" ry="76" fill="#8E5A3C"/>
+    <path d="M134 168c-10-78 36-100 66-100s76 22 66 100c-6-34-26-58-66-58s-60 24-66 58z" fill="#15151C"/>
+    <circle cx="176" cy="176" r="5" fill="#15151C"/><circle cx="224" cy="176" r="5" fill="#15151C"/>
+    <path d="M178 204q22 18 44 0" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+    <path d="M160 296c-16 62 14 96 40 96s58-30 40-96" fill="none" stroke="#14224A" stroke-width="7" stroke-linecap="round"/>
+    <path d="M200 392v28" stroke="#14224A" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="200" cy="434" r="16" fill="#14224A"/><circle cx="200" cy="434" r="7" fill="#C9D9FF"/>
+    <rect x="270" y="372" width="54" height="34" rx="6" fill="#E9EFFF"/><rect x="278" y="380" width="24" height="5" rx="2.500" fill="#2563EB"/><rect x="278" y="390" width="36" height="4" rx="2" fill="#B9C9F0"/>
+  </symbol>
+</defs></svg>
 
 <main id="top">
-  <section class="hero">
-    <div class="wrap">
-      <div>
-        <p class="eyebrow">Welcome to <span data-full>Haven Hospital</span></p>
-        <h1>Caring for you and your family, every day of the year.</h1>
-        <p>Outpatient clinics, maternity, children's care, surgery, laboratory and pharmacy, with an emergency department that never closes.</p>
-        <div class="cta">
-          <a class="btn" href="#appointment"><svg><use href="#i-clock"/></svg>Book an appointment</a>
-          <a class="btn line" href="#homecare"><svg><use href="#i-home"/></svg>Request care at home</a>
+  <section class="hero wrap">
+    <div class="hero-card">
+      <div class="hero-left">
+        <nav class="topnav" aria-label="Main">
+          <a class="brand" href="#top"><i aria-hidden="true"></i><span data-full>Haven Hospital</span></a>
+          <div class="pills">
+            <a href="#about">About us</a>
+            <a href="#services">Services</a>
+            <a href="#visitors">Visitors</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </nav>
+        <h1><span data-name>Haven</span><br>Hospital</h1>
+        <div class="hero-lead">
+          <a class="btn" href="#appointment">Book appointment <span class="ico"><svg><use href="#i-user"/></svg></span></a>
+          <p><b>We treat</b> not only symptoms. <b>We care</b> about each person.</p>
+        </div>
+        <div class="proud">
+          <div class="tile" id="tour" aria-hidden="true"><small>Our hospital</small></div>
+          <div class="stats">
+            <p class="stats-cap">At a glance</p>
+            <p><b>24/7</b><span>emergency department</span></p>
+            <p><b id="st-dept">8</b><span>medical departments</span></p>
+            <p><b id="st-home">4</b><span>services at home</span></p>
+          </div>
         </div>
       </div>
-      <!-- To use a real photo, save it as images/hero.jpg -->
-      <div class="photo" style="background-image:url(images/hero.jpg)">
-        <span class="emblem" id="emblem" aria-hidden="true"></span>
-        <div class="badge"><b>Emergency department</b>Open 24 hours, every day</div>
+      <div class="hero-right">
+        <div class="rtop">
+          <span class="addr"><svg><use href="#i-pin"/></svg><span data-address>Hospital address</span></span>
+          <a class="ico dark" data-tel href="#contact" aria-label="Call the hospital"><svg><use href="#i-phone"/></svg></a>
+          <a class="ico glass" href="#status" aria-label="Check my request"><svg><use href="#i-check"/></svg></a>
+          <a class="ico dark" href="app.html" aria-label="My Care sign-in"><svg><use href="#i-user"/></svg></a>
+        </div>
+        <div class="rtext">
+          <h2>With modern equipment and caring people</h2>
+          <p>Outpatient clinics, maternity, children's care, surgery, laboratory and pharmacy, with <b>emergency care that never closes</b>.</p>
+        </div>
+        <div class="rfoot"><span>Emergency? Call or come<br>straight in, <b>day or night</b>.</span><a class="ico" data-tel-em href="#contact" aria-label="Call emergency" style="color:var(--red)"><svg><use href="#i-siren"/></svg></a></div>
+      </div>
+      <div class="figure" id="hero-figure"><svg viewBox="0 0 400 470" role="img" aria-label="A doctor"><use href="#doctor"/></svg></div>
+      <span class="chip c1">Open 24 hours</span>
+      <span class="chip c2">Experienced</span>
+      <span class="chip c3">Care at home</span>
+    </div>
+  </section>
+
+  <section class="wrap" id="about">
+    <div class="state">
+      <p class="tag" data-full>Haven Hospital</p>
+      <h2>We combine modern <i aria-hidden="true"></i> <span>medicine with a human approach so every patient</span> feels confident and calm.</h2>
+      <p>You can book, ask a question or request care at home right here. <b>No account or password needed.</b></p>
+      <a class="btn" href="#appointment">Book appointment <span class="ico"><svg><use href="#i-arrow"/></svg></span></a>
+    </div>
+  </section>
+
+  <section class="sec wrap" id="services">
+    <div class="sec-head">
+      <h2>Our medical<br>services <small>{ what you get }</small></h2>
+      <p>A full range of care under one roof, from a first consultation to tests and treatment. <a href="#appointment">Book any of them</a></p>
+    </div>
+    <div class="svcs" id="svcs"></div>
+  </section>
+
+  <section class="wrap">
+    <div class="why">
+      <div class="why-art">
+        <h2>Why<br>choose us</h2>
+        <p class="by">PROVIDED BY: licensed medical staff</p>
+        <div class="figure" id="why-figure"><svg viewBox="0 0 400 470" role="img" aria-label="A doctor"><use href="#doctor"/></svg></div>
+        <span class="chip c1">Qualified doctors</span>
+        <span class="chip c2">On-site laboratory</span>
+        <span class="chip c3">Nurses who visit you</span>
+      </div>
+      <div class="why-stats">
+        <p class="tag">{ Advantages }</p>
+        <p><b>24<em>/7</em></b><strong>Emergency department</strong><span>Open every hour of every day, including holidays.</span></p>
+        <p><b><span id="w-dept">8</span><em>+</em></b><strong>Departments</strong><span>From family medicine to laboratory and pharmacy.</span></p>
+        <p><b><span id="w-home">4</span></b><strong>Services at your home</strong><span>Nurse visits, lab samples, delivery and ambulance.</span></p>
+        <p><b>0</b><strong>Accounts needed</strong><span>Book, ask and track a request with just your phone number.</span></p>
       </div>
     </div>
   </section>
 
-  <div class="strip"><div class="wrap">
-    <div><svg><use href="#i-siren"/></svg><p><b>Emergency</b><span data-h-em></span></p></div>
-    <div><svg><use href="#i-clock"/></svg><p><b>Outpatient clinics</b><span data-h-out></span></p></div>
-    <div><svg><use href="#i-users"/></svg><p><b>Visiting hours</b><span data-h-vis></span></p></div>
-    <div><svg><use href="#i-pin"/></svg><p><b>Find us</b><span data-address></span></p></div>
-  </div></div>
-
-  <section class="sec">
-    <div class="wrap">
-      <div class="sec-head"><p class="eyebrow">How can we help you today?</p><h2>Do it here, without creating an account</h2></div>
-      <div class="tiles">
-        <a class="tile" href="#appointment"><svg><use href="#i-clock"/></svg><b>Book an appointment</b><span>Tell us the department and day. We call you to confirm the time.</span><em>Book now →</em></a>
-        <a class="tile" href="#homecare"><svg><use href="#i-home"/></svg><b>Care at home</b><span>A nurse visit, a lab sample collected or medicine delivered.</span><em>Request it →</em></a>
-        <a class="tile" href="#ask"><svg><use href="#i-chat"/></svg><b>Ask a nurse</b><span>Send a question and a nurse replies by phone or text.</span><em>Ask now →</em></a>
-        <a class="tile" href="#status"><svg><use href="#i-check"/></svg><b>Check my request</b><span>Use the reference code we sent you to see where it has reached.</span><em>Check →</em></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec tint" id="departments">
-    <div class="wrap">
-      <div class="sec-head"><p class="eyebrow">Our departments</p><h2>Medical services under one roof</h2><p>Choose a department to book an appointment. If you are not sure where to go, choose General medicine and we will guide you.</p></div>
-      <div class="depts" id="depts"></div>
-    </div>
-  </section>
-
-  <section class="sec" id="appointment">
-    <div class="wrap two">
-      <div>
-        <div class="sec-head"><p class="eyebrow">Appointments</p><h2>Book an appointment</h2><p>No account or password is needed. Fill in the short form and our front desk will call you to confirm.</p></div>
+  <section class="sec wrap" id="appointment">
+    <div class="two">
+      <div class="panel blue">
+        <p class="tag" style="color:#DCE7FF">{ Appointments }</p>
+        <h2>Book an<br>appointment</h2>
+        <p>Fill in the short form and our front desk calls you to confirm the day and time.</p>
         <ol class="steps">
-          <li><p><b>Send the form</b><span>Tell us who the patient is and which department you need.</span></p></li>
-          <li><p><b>We call you</b><span>The front desk phones you to agree the day and time.</span></p></li>
-          <li><p><b>Come to the hospital</b><span>Bring your hospital card and your NHIS or insurance card if you have one.</span></p></li>
+          <li><p><b>Send the form</b><span>Patient's name, phone and department</span></p></li>
+          <li><p><b>We call you</b><span>To agree the day and time</span></p></li>
+          <li><p><b>Come in</b><span>Bring your hospital and NHIS or insurance card</span></p></li>
         </ol>
       </div>
       <form class="panel form" id="f-appt" novalidate>
@@ -101,19 +138,15 @@
         </div>
         <div class="field"><label for="a-note">What is the problem? <span>(optional)</span></label><textarea id="a-note"></textarea></div>
         <div class="out" aria-live="polite"></div>
-        <button class="btn">Send appointment request</button>
+        <button class="btn" style="align-self:flex-start">Send request <span class="ico"><svg><use href="#i-arrow"/></svg></span></button>
       </form>
     </div>
   </section>
 
-  <section class="sec tint" id="homecare">
-    <div class="wrap two">
-      <div>
-        <div class="sec-head"><p class="eyebrow">Care at home</p><h2>We can come to you</h2><p>For patients who find it hard to travel, and for families caring for an older relative. Choose what you need and where to come.</p></div>
-        <div class="msg err" style="background:#fff"><b>In an emergency, do not wait for this form.</b> Call <b data-emergency>the hospital</b> or come straight to the emergency department.</div>
-      </div>
+  <section class="sec wrap" id="homecare">
+    <div class="two">
       <form class="panel form" id="f-home" novalidate>
-        <div class="field"><span class="lab" id="hc-lab">What do you need?</span><div class="choice" id="hc-choice" role="radiogroup" aria-labelledby="hc-lab"></div></div>
+        <div class="field"><span class="lab" id="hc-lab">What do you need at home?</span><div class="choice" id="hc-choice" role="radiogroup" aria-labelledby="hc-lab"></div></div>
         <div class="row2">
           <div class="field"><label for="h-name">Patient's full name</label><input id="h-name" autocomplete="name" required></div>
           <div class="field"><label for="h-phone">Phone number</label><input id="h-phone" type="tel" inputmode="tel" autocomplete="tel" required></div>
@@ -121,60 +154,62 @@
         <div class="field"><label for="h-addr">Where should we come?</label><input id="h-addr" placeholder="House number, street, area, landmark" autocomplete="street-address" required></div>
         <div class="field"><label for="h-note">Anything we should know? <span>(optional)</span></label><textarea id="h-note"></textarea></div>
         <div class="out" aria-live="polite"></div>
-        <button class="btn">Send request</button>
+        <button class="btn" style="align-self:flex-start">Send request <span class="ico"><svg><use href="#i-arrow"/></svg></span></button>
       </form>
-    </div>
-  </section>
-
-  <section class="sec" id="visitors">
-    <div class="wrap">
-      <div class="sec-head"><p class="eyebrow">Patients &amp; visitors</p><h2>Before you come</h2></div>
-      <div class="facts">
-        <div class="fact"><b>Outpatient clinics</b><span data-h-out></span></div>
-        <div class="fact"><b>Visiting hours</b><span data-h-vis></span></div>
-        <div class="fact"><b>Emergency department</b><span data-h-em></span></div>
+      <div class="panel blue">
+        <p class="tag" style="color:#DCE7FF">{ Care at home }</p>
+        <h2>We can<br>come to you</h2>
+        <p>For patients who find it hard to travel, and for families caring for an older relative.</p>
+        <p class="alert" style="margin-top:auto"><b>In an emergency, do not wait for this form.</b> Call <b data-emergency>the hospital</b> or come straight to the emergency department.</p>
       </div>
-      <details open><summary>What should I bring to my appointment?</summary><p>Your hospital card if you have one, your NHIS or insurance card, any medicines you are taking, and any letters or test results from another clinic.</p></details>
-      <details><summary>Do you accept NHIS and private insurance?</summary><p>Please bring your card and ask at the front desk when you arrive. They will tell you what is covered before you are seen.</p></details>
-      <details><summary>How can I pay?</summary><p>You can pay at the cashier by cash, mobile money or card. Ask for a receipt for every payment.</p></details>
-      <details><summary>Can a family member book or ask on my behalf?</summary><p>Yes. A son, daughter or carer can fill in any form on this page with the patient's name and their own phone number.</p></details>
     </div>
   </section>
 
-  <section class="sec tint" id="ask">
-    <div class="wrap two">
+  <section class="sec wrap" id="visitors">
+    <div class="sec-head"><h2>Patients<br>&amp; visitors <small>{ before you come }</small></h2></div>
+    <div class="facts">
+      <div class="fact"><span class="ico"><svg><use href="#i-clock"/></svg></span><b>Outpatient clinics</b><span data-h-out></span></div>
+      <div class="fact"><span class="ico"><svg><use href="#i-users"/></svg></span><b>Visiting hours</b><span data-h-vis></span></div>
+      <div class="fact"><span class="ico"><svg><use href="#i-siren"/></svg></span><b>Emergency department</b><span data-h-em></span></div>
+    </div>
+    <details open><summary>What should I bring to my appointment?</summary><p>Your hospital card if you have one, your NHIS or insurance card, any medicines you are taking, and any letters or test results from another clinic.</p></details>
+    <details><summary>Do you accept NHIS and private insurance?</summary><p>Please bring your card and ask at the front desk when you arrive. They will tell you what is covered before you are seen.</p></details>
+    <details><summary>How can I pay?</summary><p>You can pay at the cashier by cash, mobile money or card. Ask for a receipt for every payment.</p></details>
+    <details><summary>Can a family member book or ask on my behalf?</summary><p>Yes. A son, daughter or carer can fill in any form on this page with the patient's name and their own phone number.</p></details>
+  </section>
+
+  <section class="sec wrap" id="ask">
+    <div class="two">
       <form class="panel form" id="f-ask" novalidate>
-        <div><p class="eyebrow">Ask a nurse</p><h2 style="font-size:28px;margin-top:6px">Send us a question</h2></div>
+        <div><p class="tag">{ Ask a nurse }</p><h2 style="margin-top:8px">Send us a question</h2></div>
         <div class="row2">
           <div class="field"><label for="q-name">Your name</label><input id="q-name" autocomplete="name" required></div>
           <div class="field"><label for="q-phone">Phone number</label><input id="q-phone" type="tel" inputmode="tel" autocomplete="tel" required></div>
         </div>
         <div class="field"><label for="q-text">Your question</label><textarea id="q-text" required></textarea></div>
         <div class="out" aria-live="polite"></div>
-        <button class="btn">Send question</button>
-        <p style="font-size:15.5px;color:var(--muted)">Not for emergencies. A nurse replies by phone or text message.</p>
+        <button class="btn" style="align-self:flex-start">Send question <span class="ico"><svg><use href="#i-arrow"/></svg></span></button>
+        <p class="tag">Not for emergencies. A nurse replies by phone or text message.</p>
       </form>
       <form class="panel form" id="status" novalidate>
-        <div><p class="eyebrow">Check my request</p><h2 style="font-size:28px;margin-top:6px">Where has it reached?</h2></div>
+        <div><p class="tag">{ Check my request }</p><h2 style="margin-top:8px">Where has it reached?</h2></div>
         <div class="field"><label for="s-code">Reference code <span>(from our text message)</span></label><input id="s-code" autocomplete="off" style="text-transform:uppercase;letter-spacing:.08em" required></div>
         <div class="out" aria-live="polite"></div>
-        <button class="btn line">Check status</button>
+        <button class="btn line plain" style="align-self:flex-start">Check status</button>
       </form>
     </div>
   </section>
 
-  <section class="sec" id="contact">
-    <div class="wrap">
-      <div class="sec-head"><p class="eyebrow">Contact</p><h2>Find us and get in touch</h2></div>
-      <div class="facts">
-        <div class="fact"><b>Address</b><span data-address></span></div>
-        <div class="fact"><b>Telephone</b><span data-phone-long></span></div>
-        <div class="fact"><b>Email</b><span data-email></span></div>
-      </div>
-      <div class="band">
-        <div><h2>Keep your own health record <span style="font-weight:400">(optional)</span></h2><p>Regular patients can sign in to record blood pressure and sugar readings, tick off daily medicines and message their nurse. Everything else on this site works without signing in.</p></div>
-        <a class="btn" href="app.html">Open My Care</a>
-      </div>
+  <section class="sec wrap" id="contact">
+    <div class="sec-head"><h2>Find us and<br>get in touch <small>{ contact }</small></h2></div>
+    <div class="facts">
+      <div class="fact"><span class="ico"><svg><use href="#i-pin"/></svg></span><b>Address</b><span data-address></span></div>
+      <div class="fact"><span class="ico"><svg><use href="#i-phone"/></svg></span><b>Telephone</b><span data-phone-long></span></div>
+      <div class="fact"><span class="ico"><svg><use href="#i-chat"/></svg></span><b>Email</b><span data-email></span></div>
+    </div>
+    <div class="band">
+      <div><h2>Keep your own health record <span class="muted" style="font-weight:400">(optional)</span></h2><p>Regular patients can sign in to record blood pressure and sugar readings, tick off daily medicines and message their nurse. Everything else on this site works without signing in.</p></div>
+      <a class="btn" href="app.html">Open My Care <span class="ico"><svg><use href="#i-arrow"/></svg></span></a>
     </div>
   </section>
 </main>
@@ -182,10 +217,10 @@
 <footer class="foot">
   <div class="wrap">
     <div class="foot-grid">
-      <div><a class="brand" href="#top"><span class="cross" aria-hidden="true"></span><span><span data-full>Haven Hospital</span><small>Caring for our community</small></span></a><p>Emergency department open 24 hours, every day.</p></div>
+      <div><p class="big"><span data-name>Haven</span><br>Hospital</p><p style="margin-top:14px;color:#DCE7FF">Emergency department open 24 hours, every day.</p></div>
       <div><h3>Patients</h3><ul><li><a href="#appointment">Book an appointment</a></li><li><a href="#homecare">Care at home</a></li><li><a href="#ask">Ask a nurse</a></li><li><a href="#status">Check my request</a></li></ul></div>
-      <div><h3>Hospital</h3><ul><li><a href="#departments">Departments</a></li><li><a href="#visitors">Patients &amp; visitors</a></li><li><a href="#contact">Contact</a></li><li><a href="app.html">My Care sign-in</a></li></ul></div>
-      <div><h3>Contact</h3><ul><li data-address></li><li data-phone-long></li><li data-email></li><li><a href="team.html">Staff sign-in</a></li></ul></div>
+      <div><h3>Hospital</h3><ul><li><a href="#services">Services</a></li><li><a href="#visitors">Patients &amp; visitors</a></li><li><a href="app.html">My Care sign-in</a></li><li><a href="team.html">Staff sign-in</a></li></ul></div>
+      <div><h3>Contact</h3><ul><li data-address></li><li data-phone-long></li><li data-email></li></ul></div>
     </div>
     <div class="legal"><span>© <span id="year"></span> <span data-full>Haven Hospital</span>. All rights reserved.</span><span>In an emergency, call or come straight in.</span></div>
   </div>
