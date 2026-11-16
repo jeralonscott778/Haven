@@ -20,10 +20,19 @@
   fill("#st-dept", DATA.departments.length); fill("#w-dept", DATA.departments.length);
   fill("#st-home", DATA.services.length); fill("#w-docs", DATA.doctors.length); fill("#w-home", DATA.services.length);
 
-  const cards = DATA.departments.map((d, i) => `<article class="svc"><span class="num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span><h3>${svgIcon(d.icon)}${esc(d.name)}</h3><p>${esc(d.blurb)}</p><div class="links"><a href="#appointment" data-dept="${esc(d.name)}">Make an appointment</a><a href="#ask">Ask</a></div></article>`);
-  cards.splice(1, 0, `<article class="svc feature"><span class="num" aria-hidden="true">${esc(H.name)}</span><p>From a first consultation and tests to treatment, with care and attention to detail.</p></article>`);
-  cards.push(`<article class="svc wide"><h3>Not sure which department you need? Start with General medicine, or ask a nurse first.</h3><div class="cta"><a class="btn" href="#appointment">Book appointment <span class="ico">${svgIcon("arrow")}</span></a><a class="btn white" href="#ask">Ask a nurse <span class="ico">${svgIcon("chat")}</span></a></div></article>`);
+  const card = (d, i) => `<article class="svc"><div class="svc-top"><span class="num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span><span class="svc-ic">${svgIcon(d.icon)}</span></div><h3>${esc(d.name)}</h3><p>${esc(d.blurb)}</p><div class="links"><a href="#appointment" data-dept="${esc(d.name)}">Make an appointment</a><a href="#ask">Ask a nurse</a></div></article>`;
+  const cards = DATA.departments.map(card);
+  cards.splice(1, 0, `<article class="svc feature"><p class="f-name">${esc(H.name)}</p><p>From a first consultation and tests to treatment, with care and attention to detail.</p><a class="f-link" href="#appointment">Book an appointment →</a></article>`);
+  cards.splice(6, 0, `<div class="svc photo" role="img" aria-label="A doctor writing notes during a consultation"><span>Unhurried consultations with qualified doctors</span></div>`);
+  cards.push(`<article class="svc cta"><h3>Not sure which department you need?</h3><p>Start with General medicine, or ask a nurse first.</p><div class="links"><a href="#appointment">Book appointment</a><a href="#ask">Ask a nurse</a></div></article>`);
   $("#svcs").innerHTML = cards.join("");
+  // phone carousel arrows
+  const track = $("#svcs"), real = () => $$(".svc:not(.feature):not(.photo)", track), depts = DATA.departments.length;
+  const pos = () => { const w = real()[0].offsetWidth + 10; return Math.round(track.scrollLeft / w); };
+  const upd = () => { const i = pos() + 1; $("#svc-count").textContent = i > depts ? "More help" : `${String(i).padStart(2, "0")} / ${String(depts).padStart(2, "0")}`; };
+  $("#svc-prev").addEventListener("click", () => track.scrollBy({ left: -(real()[0].offsetWidth + 10), behavior: "smooth" }));
+  $("#svc-next").addEventListener("click", () => track.scrollBy({ left: real()[0].offsetWidth + 10, behavior: "smooth" }));
+  track.addEventListener("scroll", () => requestAnimationFrame(upd), { passive: true }); upd();
   $("#svcs").addEventListener("click", e => { const x = e.target.closest("[data-dept]"); if (x && window.Booking) Booking.start(x.dataset.dept); });
   $("#hc-choice").innerHTML = DATA.services.map((s, i) => `<label><input type="radio" name="svc" value="${s.id}" ${i === 0 ? "checked" : ""}><span>${esc(s.name)}<span>${esc(s.blurb)}</span></span></label>`).join("");
 
