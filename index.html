@@ -3,180 +3,198 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Haven Hospital — your hospital stays with you at home</title>
-<meta name="description" content="Track your readings, get medicine reminders, request a nurse, lab sample or delivery at home, and message a nurse — from any phone.">
-<meta name="theme-color" content="#147D52">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23147D52'/%3E%3Cpath d='M13 8h6v5h5v6h-5v5h-6v-5H8v-6h5z' fill='%23FFC64A'/%3E%3C/svg%3E">
+<title>Haven Hospital</title>
+<meta name="description" content="Book an appointment, request care at home, ask a nurse a question and find our departments, opening hours and location.">
+<meta name="theme-color" content="#0E5F3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23147D52'/%3E%3Cpath d='M13 7h6v6h6v6h-6v6h-6v-6H7v-6h6z' fill='%23fff'/%3E%3C/svg%3E">
 <link rel="preload" href="fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
 
-<header class="hero" id="top">
-  <i class="hero-haze"></i>
-  <i class="cloud" style="--w:150px;left:7%;top:24%" aria-hidden="true"></i>
-  <i class="cloud" style="--w:110px;right:9%;top:34%" aria-hidden="true"></i>
-  <i class="cloud" style="--w:190px;right:20%;bottom:9%" aria-hidden="true"></i>
-  <i class="cloud" style="--w:90px;left:22%;bottom:22%" aria-hidden="true"></i>
-  <nav class="nav" aria-label="Main">
-    <div>
-      <a class="pill dark logo" href="#top"><span data-name>haven</span><svg><use href="#i-pulse"/></svg></a>
-      <span class="pill hide-m"><svg><use href="#i-plus"/></svg>Hospital · <b>Open 24 hours</b></span>
+<div class="site-top">
+  <div class="util"><div class="wrap">
+    <a class="em" data-tel-em href="#contact"><i></i><span id="em-text">Emergency department open 24 hours</span></a>
+    <div class="util-right">
+      <a data-tel href="#contact"><svg><use href="#i-phone"/></svg><span data-phone>Call us</span></a>
+      <a href="#visitors"><svg><use href="#i-clock"/></svg>Opening hours</a>
+      <a href="#contact"><svg><use href="#i-pin"/></svg>Find us</a>
     </div>
-    <div>
-      <a class="pill hide-m" href="#find">Find us</a>
-      <a class="pill hide-m" data-tel href="#find"><svg><use href="#i-phone"/></svg>Call us</a>
-      <a class="pill ico-r" href="app.html"><span id="nav-auth">Sign in</span> <span class="ico"><svg><use href="#i-user"/></svg></span></a>
-    </div>
-  </nav>
+  </div></div>
+  <header class="head"><div class="wrap">
+    <a class="brand" href="#top"><span class="cross" aria-hidden="true"></span><span><span data-full>Haven Hospital</span><small>Caring for our community</small></span></a>
+    <nav class="menu" aria-label="Main">
+      <a href="#top">Home</a>
+      <a href="#departments">Departments</a>
+      <a href="#homecare">Care at home</a>
+      <a href="#visitors">Patients &amp; visitors</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn" href="#appointment">Book an appointment</a>
+  </div></header>
+</div>
 
-  <div class="hero-mid">
-    <i class="dash" aria-hidden="true"></i>
-    <h1>Your hospital <span class="sun" aria-hidden="true"><svg><use href="#i-plus"/></svg></span> stays<br>with you at home.</h1>
-    <p class="sub">Record your readings, keep track of your medicines and reach a nurse, all from your own phone.</p>
-    <div class="hero-cta">
-      <a class="go" href="app.html">Open my care <span class="ico"><svg><use href="#i-arrow"/></svg></span></a>
-      <a class="pill" data-tel href="#find"><svg><use href="#i-phone"/></svg>Call the hospital</a>
-    </div>
-  </div>
-
-  <div class="hero-card" id="hero-card">
-    <span class="ico lg"><svg><use href="#i-users"/></svg></span>
-    <p>No app to download. Sign in with your <b>phone number</b>.</p>
-    <button class="x" aria-label="Close" id="hero-x">×</button>
-  </div>
-  <a class="pill hero-tag" href="#find"><b></b>Emergency? Call or come straight in</a>
-</header>
-
-<aside class="side" aria-label="Quick links">
-  <a class="ico" href="app.html#nurse" aria-label="Message a nurse"><svg><use href="#i-chat"/></svg></a>
-  <a class="ico" href="app.html#home" aria-label="Request care at home"><svg><use href="#i-home"/></svg></a>
-  <a class="ico" href="app.html#vitals" aria-label="Record a reading"><svg><use href="#i-pulse"/></svg></a>
-  <a class="ico" href="#top" aria-label="Back to top"><svg><use href="#i-up"/></svg></a>
-</aside>
-
-<main>
-  <!-- ABOUT -->
-  <section class="sec wrap" id="about">
-    <svg class="curve" viewBox="0 0 1240 520" preserveAspectRatio="none" aria-hidden="true"><path d="M0 110C180 40 300 130 360 300s190 190 330 120 170-250 550-280"/></svg>
-    <div class="center">
-      <p class="sec-label">How it helps</p>
-      <h2 class="h2" style="margin-top:14px">The care you trust, <span class="hl">between <span class="ico"><svg><use href="#i-heart"/></svg></span></span><br>your hospital visits.</h2>
-      <p class="lead">The same nurses and doctors you see at the hospital keep an eye on you at home, so small problems are caught early.</p>
-      <a class="go" href="#services">See what you can do <span class="ico dark"><svg><use href="#i-arrow"/></svg></span></a>
-    </div>
-
-    <div class="cards">
-      <article class="c c-dark">
-        <span class="pill glass" style="align-self:flex-start"><svg><use href="#i-clock"/></svg>Morning · Evening</span>
-        <h3>A gentle reminder when it is time for your medicine.</h3>
-      </article>
-      <article class="c c-phone">
-        <div class="mini" aria-hidden="true"><small>Today</small><b>124/82</b><span>All good this morning</span></div>
-        <a class="pill cap-pill" href="app.html#vitals"><svg><use href="#i-pulse"/></svg>Your readings</a>
-      </article>
-      <article class="c c-home">
-        <i class="dash" aria-hidden="true"></i>
-        <span class="ico xl" style="box-shadow:none" aria-hidden="true"><svg><use href="#i-home"/></svg></span>
-        <a class="pill cap-pill" href="app.html#home"><svg><use href="#i-pin"/></svg>A nurse at your door</a>
-      </article>
-      <article class="c c-steel">
-        <span class="pill glass" style="align-self:flex-start"><svg><use href="#i-pulse"/></svg>Watched over</span>
-        <p>If a reading is <b>out of range</b>, your care team is told straight away.</p>
-      </article>
-      <article class="c c-sky">
-        <i class="dash" aria-hidden="true"></i>
-        <span class="figure" aria-hidden="true"><svg><use href="#i-chat"/></svg></span>
-        <a class="pill ico-r" href="app.html#nurse">Message a nurse <span class="ico"><svg><use href="#i-out"/></svg></span></a>
-      </article>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section class="sec wrap" id="services">
-    <div class="svc">
-      <div class="svc-art">
-        <p class="sec-label" style="color:#fff">What you can do</p>
-        <i class="capsule" aria-hidden="true"></i><i class="inner" aria-hidden="true"></i>
-        <i class="dot" style="left:62%;top:22%"></i><i class="dot" style="left:34%;top:44%;width:7px;height:7px"></i>
-        <div class="chip-big" style="right:5%;top:23%"><span class="pill glass"><svg><use href="#i-pulse"/></svg>Blood pressure</span><span class="val" style="align-self:flex-end;padding-right:6px">124/82</span></div>
-        <div class="chip-big" style="left:5%;top:46%"><span class="pill glass"><svg><use href="#i-drop"/></svg>Sugar</span><span class="val">5.6 mmol/L</span></div>
-        <p class="place"><svg style="display:inline;width:.9em;height:.9em;vertical-align:-.1em"><use href="#i-pin"/></svg> Readings from home</p>
-      </div>
-      <div class="svc-info">
-        <div class="tabs-row" role="tablist" id="svc-tabs"></div>
-        <div class="slide">
-          <button class="chev" id="svc-prev" aria-label="Previous"><svg><use href="#i-left"/></svg></button>
-          <div class="slide-body" aria-live="polite">
-            <span class="ico xl" id="svc-ico" style="box-shadow:none"></span>
-            <p class="path" id="svc-path"></p>
-            <h3 id="svc-text"></h3>
-            <a class="go" id="svc-link" href="app.html">Open <span class="ico dark"><svg><use href="#i-arrow"/></svg></span></a>
-          </div>
-          <button class="chev" id="svc-next" aria-label="Next"><svg><use href="#i-right"/></svg></button>
-        </div>
-        <div class="dots" id="svc-dots" aria-hidden="true"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- APP -->
-  <section class="sec wrap" id="app">
-    <div class="center">
-      <p class="sec-label">On your phone</p>
-      <h2 class="h2" style="margin-top:14px">Simple enough <svg class="h-ico" aria-hidden="true"><use href="#i-cloud"/></svg> for<br><span class="hl">everyone <span class="ico cyan" style="box-shadow:none"><svg><use href="#i-users"/></svg></span></span> in the family.</h2>
-    </div>
-    <div class="appshow">
-      <i class="ring" aria-hidden="true"></i>
-      <ul class="notes l">
-        <li>Large, clear numbers<small>Your latest readings on one screen</small></li>
-        <li>One-tap medicine list<small>Tick each one off as you take it</small></li>
-        <li>Family can help<small>A son or daughter can sign in for you</small></li>
-      </ul>
-      <div style="position:relative">
-        <i class="cloud" style="--w:92px;left:-70px;bottom:120px"></i><i class="cloud" style="--w:92px;right:-74px;top:150px"></i>
-        <div class="phone" aria-hidden="true">
-          <p class="t">08:02</p><p class="city">Good morning</p>
-          <p class="big">124/82 <small>mmHg</small></p>
-          <p class="say">It's medicine time</p>
-          <div class="row"><span>Sugar<b>5.6</b></span><span>Temp<b>36.7°</b></span><span>Weight<b>71</b></span></div>
-          <div class="dock"><span class="pill">add reading</span><span class="pill">nurse</span></div>
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Welcome to <span data-full>Haven Hospital</span></p>
+        <h1>Caring for you and your family, every day of the year.</h1>
+        <p>Outpatient clinics, maternity, children's care, surgery, laboratory and pharmacy, with an emergency department that never closes.</p>
+        <div class="cta">
+          <a class="btn" href="#appointment"><svg><use href="#i-clock"/></svg>Book an appointment</a>
+          <a class="btn line" href="#homecare"><svg><use href="#i-home"/></svg>Request care at home</a>
         </div>
       </div>
-      <ul class="notes r">
-        <li><b>Nurse</b> alerts<small>An out-of-range reading reaches your care team straight away</small></li>
-        <li>Care <b>at home</b><small>Nurse visit, lab sample or medicine delivery to your door</small></li>
-        <li>Message a <b>nurse</b><small>Ask a question without travelling or waiting on the phone</small></li>
-      </ul>
-    </div>
-    <div class="float-card">
-      <span class="ico lg"><svg><use href="#i-users"/></svg></span>
-      <a class="ico lg dark" href="app.html" aria-label="Open haven"><svg><use href="#i-down"/></svg></a>
-      <p>Nothing to install. Works on <b>any phone</b> with a browser.</p>
+      <!-- To use a real photo, save it as images/hero.jpg -->
+      <div class="photo" style="background-image:url(images/hero.jpg)">
+        <span class="emblem" id="emblem" aria-hidden="true"></span>
+        <div class="badge"><b>Emergency department</b>Open 24 hours, every day</div>
+      </div>
     </div>
   </section>
 
-  <!-- FIND US -->
-  <section class="sec wrap" id="find">
-    <div class="center"><p class="sec-label">Find us</p><h2 class="h2" style="margin-top:14px">A real hospital, <span class="hl">close by <span class="ico"><svg><use href="#i-pin"/></svg></span></span></h2></div>
-    <div class="info">
-      <div class="box"><span class="ico lg"><svg><use href="#i-pin"/></svg></span><h3>Visit us</h3><p data-address></p><p class="muted">Open 24 hours, every day</p></div>
-      <div class="box"><span class="ico lg"><svg><use href="#i-phone"/></svg></span><h3>Call us</h3><p data-phone></p><p class="muted">A person answers and can book or advise</p></div>
-      <div class="box em"><span class="ico lg" style="color:var(--red)"><svg><use href="#i-siren"/></svg></span><h3>Emergency</h3><p>Do not use the app. Call <b data-emergency></b> or come straight to the hospital.</p></div>
+  <div class="strip"><div class="wrap">
+    <div><svg><use href="#i-siren"/></svg><p><b>Emergency</b><span data-h-em></span></p></div>
+    <div><svg><use href="#i-clock"/></svg><p><b>Outpatient clinics</b><span data-h-out></span></p></div>
+    <div><svg><use href="#i-users"/></svg><p><b>Visiting hours</b><span data-h-vis></span></p></div>
+    <div><svg><use href="#i-pin"/></svg><p><b>Find us</b><span data-address></span></p></div>
+  </div></div>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">How can we help you today?</p><h2>Do it here, without creating an account</h2></div>
+      <div class="tiles">
+        <a class="tile" href="#appointment"><svg><use href="#i-clock"/></svg><b>Book an appointment</b><span>Tell us the department and day. We call you to confirm the time.</span><em>Book now →</em></a>
+        <a class="tile" href="#homecare"><svg><use href="#i-home"/></svg><b>Care at home</b><span>A nurse visit, a lab sample collected or medicine delivered.</span><em>Request it →</em></a>
+        <a class="tile" href="#ask"><svg><use href="#i-chat"/></svg><b>Ask a nurse</b><span>Send a question and a nurse replies by phone or text.</span><em>Ask now →</em></a>
+        <a class="tile" href="#status"><svg><use href="#i-check"/></svg><b>Check my request</b><span>Use the reference code we sent you to see where it has reached.</span><em>Check →</em></a>
+      </div>
     </div>
   </section>
 
-  <!-- END -->
-  <footer class="end wrap">
-    <h2>Here <span class="sky-pill" aria-hidden="true"></span> whenever<br>you need us.</h2>
-    <div class="end-row"><a class="go solid" href="app.html">Create my account <span class="ico"><svg><use href="#i-arrow"/></svg></span></a><a class="pill" data-tel href="#find"><svg><use href="#i-phone"/></svg>Call the hospital</a></div>
-    <div class="end-foot">
-      <span>Copyright © <span id="year"></span> <span data-full></span></span>
-      <nav><a href="app.html">Patient sign-in</a><a href="team.html">Care team sign-in</a></nav>
-      <a class="totop" href="#top" aria-label="Back to top"><svg><use href="#i-up"/></svg></a>
+  <section class="sec tint" id="departments">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Our departments</p><h2>Medical services under one roof</h2><p>Choose a department to book an appointment. If you are not sure where to go, choose General medicine and we will guide you.</p></div>
+      <div class="depts" id="depts"></div>
     </div>
-  </footer>
+  </section>
+
+  <section class="sec" id="appointment">
+    <div class="wrap two">
+      <div>
+        <div class="sec-head"><p class="eyebrow">Appointments</p><h2>Book an appointment</h2><p>No account or password is needed. Fill in the short form and our front desk will call you to confirm.</p></div>
+        <ol class="steps">
+          <li><p><b>Send the form</b><span>Tell us who the patient is and which department you need.</span></p></li>
+          <li><p><b>We call you</b><span>The front desk phones you to agree the day and time.</span></p></li>
+          <li><p><b>Come to the hospital</b><span>Bring your hospital card and your NHIS or insurance card if you have one.</span></p></li>
+        </ol>
+      </div>
+      <form class="panel form" id="f-appt" novalidate>
+        <div class="row2">
+          <div class="field"><label for="a-name">Patient's full name</label><input id="a-name" autocomplete="name" required></div>
+          <div class="field"><label for="a-phone">Phone number</label><input id="a-phone" type="tel" inputmode="tel" autocomplete="tel" required></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="a-dept">Department</label><select id="a-dept" required></select></div>
+          <div class="field"><label for="a-when">Preferred day <span>(optional)</span></label><input id="a-when" placeholder="e.g. Thursday morning"></div>
+        </div>
+        <div class="field"><label for="a-note">What is the problem? <span>(optional)</span></label><textarea id="a-note"></textarea></div>
+        <div class="out" aria-live="polite"></div>
+        <button class="btn">Send appointment request</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="sec tint" id="homecare">
+    <div class="wrap two">
+      <div>
+        <div class="sec-head"><p class="eyebrow">Care at home</p><h2>We can come to you</h2><p>For patients who find it hard to travel, and for families caring for an older relative. Choose what you need and where to come.</p></div>
+        <div class="msg err" style="background:#fff"><b>In an emergency, do not wait for this form.</b> Call <b data-emergency>the hospital</b> or come straight to the emergency department.</div>
+      </div>
+      <form class="panel form" id="f-home" novalidate>
+        <div class="field"><span class="lab" id="hc-lab">What do you need?</span><div class="choice" id="hc-choice" role="radiogroup" aria-labelledby="hc-lab"></div></div>
+        <div class="row2">
+          <div class="field"><label for="h-name">Patient's full name</label><input id="h-name" autocomplete="name" required></div>
+          <div class="field"><label for="h-phone">Phone number</label><input id="h-phone" type="tel" inputmode="tel" autocomplete="tel" required></div>
+        </div>
+        <div class="field"><label for="h-addr">Where should we come?</label><input id="h-addr" placeholder="House number, street, area, landmark" autocomplete="street-address" required></div>
+        <div class="field"><label for="h-note">Anything we should know? <span>(optional)</span></label><textarea id="h-note"></textarea></div>
+        <div class="out" aria-live="polite"></div>
+        <button class="btn">Send request</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="sec" id="visitors">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Patients &amp; visitors</p><h2>Before you come</h2></div>
+      <div class="facts">
+        <div class="fact"><b>Outpatient clinics</b><span data-h-out></span></div>
+        <div class="fact"><b>Visiting hours</b><span data-h-vis></span></div>
+        <div class="fact"><b>Emergency department</b><span data-h-em></span></div>
+      </div>
+      <details open><summary>What should I bring to my appointment?</summary><p>Your hospital card if you have one, your NHIS or insurance card, any medicines you are taking, and any letters or test results from another clinic.</p></details>
+      <details><summary>Do you accept NHIS and private insurance?</summary><p>Please bring your card and ask at the front desk when you arrive. They will tell you what is covered before you are seen.</p></details>
+      <details><summary>How can I pay?</summary><p>You can pay at the cashier by cash, mobile money or card. Ask for a receipt for every payment.</p></details>
+      <details><summary>Can a family member book or ask on my behalf?</summary><p>Yes. A son, daughter or carer can fill in any form on this page with the patient's name and their own phone number.</p></details>
+    </div>
+  </section>
+
+  <section class="sec tint" id="ask">
+    <div class="wrap two">
+      <form class="panel form" id="f-ask" novalidate>
+        <div><p class="eyebrow">Ask a nurse</p><h2 style="font-size:28px;margin-top:6px">Send us a question</h2></div>
+        <div class="row2">
+          <div class="field"><label for="q-name">Your name</label><input id="q-name" autocomplete="name" required></div>
+          <div class="field"><label for="q-phone">Phone number</label><input id="q-phone" type="tel" inputmode="tel" autocomplete="tel" required></div>
+        </div>
+        <div class="field"><label for="q-text">Your question</label><textarea id="q-text" required></textarea></div>
+        <div class="out" aria-live="polite"></div>
+        <button class="btn">Send question</button>
+        <p style="font-size:15.5px;color:var(--muted)">Not for emergencies. A nurse replies by phone or text message.</p>
+      </form>
+      <form class="panel form" id="status" novalidate>
+        <div><p class="eyebrow">Check my request</p><h2 style="font-size:28px;margin-top:6px">Where has it reached?</h2></div>
+        <div class="field"><label for="s-code">Reference code <span>(from our text message)</span></label><input id="s-code" autocomplete="off" style="text-transform:uppercase;letter-spacing:.08em" required></div>
+        <div class="out" aria-live="polite"></div>
+        <button class="btn line">Check status</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="sec" id="contact">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Contact</p><h2>Find us and get in touch</h2></div>
+      <div class="facts">
+        <div class="fact"><b>Address</b><span data-address></span></div>
+        <div class="fact"><b>Telephone</b><span data-phone-long></span></div>
+        <div class="fact"><b>Email</b><span data-email></span></div>
+      </div>
+      <div class="band">
+        <div><h2>Keep your own health record <span style="font-weight:400">(optional)</span></h2><p>Regular patients can sign in to record blood pressure and sugar readings, tick off daily medicines and message their nurse. Everything else on this site works without signing in.</p></div>
+        <a class="btn" href="app.html">Open My Care</a>
+      </div>
+    </div>
+  </section>
 </main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><a class="brand" href="#top"><span class="cross" aria-hidden="true"></span><span><span data-full>Haven Hospital</span><small>Caring for our community</small></span></a><p>Emergency department open 24 hours, every day.</p></div>
+      <div><h3>Patients</h3><ul><li><a href="#appointment">Book an appointment</a></li><li><a href="#homecare">Care at home</a></li><li><a href="#ask">Ask a nurse</a></li><li><a href="#status">Check my request</a></li></ul></div>
+      <div><h3>Hospital</h3><ul><li><a href="#departments">Departments</a></li><li><a href="#visitors">Patients &amp; visitors</a></li><li><a href="#contact">Contact</a></li><li><a href="app.html">My Care sign-in</a></li></ul></div>
+      <div><h3>Contact</h3><ul><li data-address></li><li data-phone-long></li><li data-email></li><li><a href="team.html">Staff sign-in</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© <span id="year"></span> <span data-full>Haven Hospital</span>. All rights reserved.</span><span>In an emergency, call or come straight in.</span></div>
+  </div>
+</footer>
+
+<div class="callbar">
+  <a class="btn red" data-tel-em href="#contact"><svg><use href="#i-phone"/></svg>Emergency</a>
+  <a class="btn" href="#appointment">Book appointment</a>
+</div>
 
 <script src="data.js"></script>
 <script src="common.js"></script>

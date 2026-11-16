@@ -1,8 +1,10 @@
 # Version 3 — care at home (readings, medicines, home services, nurse chat)
 
 Pages
-- `index.html`  public site
-- `app.html`    patient app (phone number + 6-digit PIN)
+- `index.html` + `site.css`  public hospital site. Appointments, care at home, ask a nurse and
+  request tracking all work here WITHOUT signing in.
+- To add a real photo to the home page, save it as `images/hero.jpg`.
+- `app.html`    optional "My Care" record for regular patients (phone number + 6-digit PIN)
 - `team.html`   care-team dashboard (staff PIN)
 - `api/app.js`  the whole backend, one Vercel function
 - `data.js`     hospital details, home services and reading limits — EDIT THIS

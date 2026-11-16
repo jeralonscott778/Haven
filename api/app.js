@@ -228,6 +228,37 @@ const actions = {
     return bundle(acct);
   },
 
+  /* ---- public: no account needed ---- */
+  async pubrequest(req) {
+    const b = req.body, name = clean(b.name, 80), phone = clean(b.phone, 24), appt = b.type === "appointment", svc = SERVICES[b.type];
+    if (!(await rateOk("pub:" + ip(req), 10, 3600))) throw new Bad("Too many requests from this device. Please call the hospital.", 429);
+    if (!appt && !svc) throw new Bad("Choose a service.");
+    if (name.length < 2) throw new Bad("Please enter your full name.");
+    if (digits(phone).length < 7) throw new Bad("Please enter a phone number we can call you on.");
+    const dept = (DATA.departments.find(x => x.name === b.dept) || {}).name, address = clean(b.address, 200);
+    if (appt && !dept) throw new Bad("Please choose a department.");
+    if (!appt && address.length < 4) throw new Bad("Please tell us where to come.");
+    const code = crypto.randomBytes(4).toString("hex").slice(0, 6).toUpperCase();
+    const r = { id: rid(8), code, acct: null, name, phone: e164(phone), type: b.type, label: appt ? `Appointment — ${dept}` : svc.name, urgent: !appt && !!svc.urgent, address: appt ? "At the hospital" : address, note: clean(b.note, 400), when: clean(b.when, 60), status: "new", assignee: "", at: nowISO(), log: [{ at: nowISO(), text: "Request received" }] };
+    await put("req", r, ["reqs:open"]); await redis("SET", "code:" + code, r.id);
+    await sendMsg(r.phone, `${HOSPITAL}: we have your request (${r.label}). Reference ${code}. We will call you to confirm.`);
+    return { code, label: r.label };
+  },
+  async pubask(req) {
+    const b = req.body, name = clean(b.name, 80), phone = clean(b.phone, 24), text = clean(b.text, 600);
+    if (!(await rateOk("ask:" + ip(req), 8, 3600))) throw new Bad("Too many messages from this device. Please call the hospital.", 429);
+    if (name.length < 2 || digits(phone).length < 7) throw new Bad("Please enter your name and phone number.");
+    if (text.length < 3) throw new Bad("Please type your question.");
+    await put("inq", { id: rid(8), name, phone: e164(phone), text, at: nowISO() }, ["inq:open"]);
+    return { ok: true };
+  },
+  async status(req) {
+    if (!(await rateOk("st:" + ip(req), 30, 3600))) throw new Bad("Too many tries. Please call the hospital.", 429);
+    const id = await redis("GET", "code:" + clean(req.query.code, 12).toUpperCase()), r = id && (await one("req", id));
+    if (!r) throw new Bad("We could not find that reference. Check the code in your text message.", 404);
+    return { label: r.label, status: r.status, when: r.when, at: r.at, assignee: r.assignee };
+  },
+
   /* ---- nurse chat ---- */
   async say(req) {
     const acct = await requirePatient(req), text = clean(req.body.text, 600);
@@ -247,10 +278,11 @@ const actions = {
   },
   async board(req) {
     requireStaff(req);
-    const [alerts, requests, threads, outbox] = await Promise.all([many("alert", "alerts:open"), many("req", "reqs:open"), many("thread", "chats:unread"), redis("LRANGE", "outbox", 0, 29)]);
+    const [alerts, requests, threads, outbox, inquiries] = await Promise.all([many("alert", "alerts:open"), many("req", "reqs:open"), many("thread", "chats:unread"), redis("LRANGE", "outbox", 0, 29), many("inq", "inq:open")]);
     const rank = r => (r.urgent ? 0 : 1) + "" + STATUS.indexOf(r.status) + r.at;
     return {
       alerts: alerts.sort((a, b) => (a.level === b.level ? b.at.localeCompare(a.at) : a.level === "urgent" ? -1 : 1)),
+      inquiries: inquiries.sort((a, b) => a.at.localeCompare(b.at)),
       requests: requests.sort((a, b) => rank(a).localeCompare(rank(b))), threads: threads.sort((a, b) => b.at.localeCompare(a.at)),
       outbox: outbox.map(x => JSON.parse(x)), today: dayStr(),
       flags: { db: HAS_DB, sms: SMS_ON, defaultPin: !env.STAFF_PIN }
@@ -262,6 +294,14 @@ const actions = {
     const acct = id && (await one("acct", clean(id, 30)));
     if (!acct) throw new Bad("No account with that phone number.", 404);
     return bundle(acct);
+  },
+  async inqdone(req) {
+    requireStaff(req);
+    const q = await one("inq", clean(req.body.id, 30)), text = clean(req.body.reply, 400);
+    if (!q) throw new Bad("Not found.", 404);
+    if (text) await sendMsg(q.phone, `${HOSPITAL}: ${text}`);
+    await redis("SREM", "inq:open", q.id);
+    return { ok: true };
   },
   async alertdone(req) {
     requireStaff(req);
