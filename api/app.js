@@ -145,6 +145,135 @@ async function bundle(acct) {
   };
 }
 
+
+/* ---------------- appointments: real slots, instant confirmation ---------------- */
+const SLOT = DATA.slotMinutes || 30;
+const DOCS = DATA.doctors || [];
+const docById = id => DOCS.find(d => d.id === id);
+const LIVE = ["confirmed", "checked_in", "seen"];
+const toMin = t => +t.slice(0, 2) * 60 + +t.slice(3);
+const hhmm = m => `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
+function workTimes(doc, date) {
+  if (!doc.days.includes(new Date(date + "T12:00:00Z").getUTCDay())) return [];
+  const out = [];
+  for (let m = toMin(doc.start); m + SLOT <= toMin(doc.end); m += SLOT) out.push(hhmm(m));
+  return out;
+}
+function notPast(date, t) {
+  if (date !== dayStr()) return true;
+  const n = localNow();
+  return toMin(t) > n.getUTCHours() * 60 + n.getUTCMinutes() + 30;
+}
+const addDays = (d, n) => new Date(new Date(d + "T12:00:00Z").getTime() + n * 864e5).toISOString().slice(0, 10);
+async function dayAppts(date) { return many("appt", "day:" + date); }
+async function freeMap(date, docs, appts) {
+  appts = appts || (await dayAppts(date));
+  const taken = new Set(appts.filter(x => LIVE.includes(x.status)).map(x => x.doctorId + "|" + x.time)), out = {};
+  for (const doc of docs) {
+    if ((await redis("SMEMBERS", "block:" + doc.id)).includes(date)) continue;
+    for (const t of workTimes(doc, date)) {
+      if (!notPast(date, t)) continue;
+      (out[t] = out[t] || { free: [], working: 0 }).working++;
+      if (!taken.has(doc.id + "|" + t)) out[t].free.push(doc.id);
+    }
+  }
+  return out;
+}
+const pubAppt = a => { const d = docById(a.doctorId) || {}; return { code: a.code, doctorId: a.doctorId, doctor: d.name, title: d.title, dept: a.dept, date: a.date, time: a.time, niceDate: niceDate(a.date), name: a.name, status: a.status }; };
+async function apptByCode(code, last4) {
+  const id = await redis("GET", "bk:" + clean(code, 12).toUpperCase()), a = id && (await one("appt", id));
+  if (!a || digits(last4).length < 4 || digits(a.phone).slice(-4) !== digits(last4).slice(-4)) throw new Bad("We could not find a booking with that code and phone number.", 404);
+  return a;
+}
+async function makeAppt(req, b, source) {
+  const name = clean(b.name, 80), phone = clean(b.phone, 24), date = b.date, time = b.time;
+  if (name.length < 2) throw new Bad("Please enter the patient's full name.");
+  if (digits(phone).length < 7) throw new Bad("Please enter a phone number.");
+  if (!isDate(date) || date < dayStr() || date > dayStr(60) || !/^\d{2}:\d{2}$/.test(time || "")) throw new Bad("Please choose a day and time.");
+  let docs = b.doctorId && b.doctorId !== "any" ? [docById(b.doctorId)].filter(Boolean) : DOCS.filter(d => d.dept === b.dept);
+  if (!docs.length) throw new Bad("Please choose a department or doctor.");
+  const slot = (await freeMap(date, docs))[time];
+  if (source !== "desk" && (!slot || !slot.free.length)) throw new Bad("That time is no longer available. Please pick another.", 409);
+  const candidates = slot ? slot.free : docs.filter(d => workTimes(d, date).includes(time)).map(d => d.id);
+  for (const docId of candidates) {
+    const id = rid(9);
+    if (!(await redis("SET", `slot:${docId}:${date}:${time}`, id, "NX"))) continue;
+    const doc = docById(docId), code = crypto.randomBytes(4).toString("hex").slice(0, 6).toUpperCase();
+    const a = { id, code, doctorId: docId, dept: doc.dept, date, time, name, phone: e164(phone), nhis: clean(b.nhis, 30), bookedBy: clean(b.bookedBy, 80), note: clean(b.note, 300), status: "confirmed", source, createdAt: nowISO(), log: [{ at: nowISO(), text: source === "desk" ? "Booked at the front desk" : "Booked online" }] };
+    await put("appt", a, ["day:" + date]); await redis("SET", "bk:" + code, id);
+    await redis("LPUSH", "recent", JSON.stringify({ id, name, date, time, doctorId: docId, dept: doc.dept, source, at: a.createdAt })); await redis("LTRIM", "recent", 0, 29);
+    await sendMsg(a.phone, `${HOSPITAL}: confirmed. ${a.name} sees ${doc.name} (${doc.dept}) ${niceDate(date)} at ${t12(time)}. Booking code ${code}. To change or cancel: ${baseUrl(req)}/#manage`);
+    return a;
+  }
+  throw new Bad("That time was just taken. Please pick another.", 409);
+}
+const apptActions = {
+  async calendar(req) {
+    const docs = req.query.doctor && req.query.doctor !== "any" ? [docById(req.query.doctor)].filter(Boolean) : DOCS.filter(d => !req.query.dept || d.dept === req.query.dept);
+    const n = Math.min(+req.query.days || 14, 21), days = [];
+    for (let i = 0; i < n; i++) {
+      const date = dayStr(i), map = await freeMap(date, docs);
+      days.push({ date, slots: Object.keys(map).sort().map(t => ({ time: t, free: map[t].free })) });
+    }
+    return { today: dayStr(), days };
+  },
+  async book(req) {
+    if (!(await rateOk("book:" + ip(req), 12, 3600))) throw new Bad("Too many bookings from this device. Please call the hospital.", 429);
+    return { appt: pubAppt(await makeAppt(req, req.body || {}, "web")) };
+  },
+  async mybooking(req) {
+    if (!(await rateOk("mb:" + ip(req), 30, 3600))) throw new Bad("Too many tries. Please call the hospital.", 429);
+    return { appt: pubAppt(await apptByCode(req.body.code, req.body.last4)) };
+  },
+  async bookcancel(req) {
+    const a = await apptByCode(req.body.code, req.body.last4);
+    if (a.status !== "confirmed") throw new Bad("This booking can no longer be cancelled online. Please call us.");
+    a.status = "cancelled"; a.log.push({ at: nowISO(), text: "Cancelled by patient" });
+    await put("appt", a); await redis("DEL", `slot:${a.doctorId}:${a.date}:${a.time}`);
+    return { appt: pubAppt(a) };
+  },
+  async bookmove(req) {
+    if (!(await rateOk("mv:" + ip(req), 20, 3600))) throw new Bad("Too many tries. Please call the hospital.", 429);
+    const a = await apptByCode(req.body.code, req.body.last4), { date, time } = req.body;
+    if (a.status !== "confirmed") throw new Bad("This booking can no longer be changed online. Please call us.");
+    const slot = isDate(date) && (await freeMap(date, [docById(a.doctorId)]))[time];
+    if (!slot || !slot.free.length) throw new Bad("That time is no longer available. Please pick another.", 409);
+    if (!(await redis("SET", `slot:${a.doctorId}:${date}:${time}`, a.id, "NX"))) throw new Bad("That time was just taken. Please pick another.", 409);
+    await redis("DEL", `slot:${a.doctorId}:${a.date}:${a.time}`); await redis("SREM", "day:" + a.date, a.id);
+    a.log.push({ at: nowISO(), text: `Moved from ${a.date} ${a.time}` }); Object.assign(a, { date, time });
+    await put("appt", a, ["day:" + date]);
+    await sendMsg(a.phone, `${HOSPITAL}: your appointment is moved to ${niceDate(date)} at ${t12(time)} with ${docById(a.doctorId).name}.`);
+    return { appt: pubAppt(a) };
+  },
+  /* staff */
+  async schedule(req) {
+    requireStaff(req);
+    const date = isDate(req.query.date) ? req.query.date : dayStr(), appts = await dayAppts(date), doctors = [];
+    for (const d of DOCS) doctors.push({ id: d.id, name: d.name, dept: d.dept, times: workTimes(d, date), away: (await redis("SMEMBERS", "block:" + d.id)).includes(date) });
+    const week = [];
+    for (let i = 0; i < 7; i++) { const dd = addDays(date, i); week.push({ date: dd, count: (await dayAppts(dd)).filter(x => LIVE.includes(x.status)).length }); }
+    return { date, today: dayStr(), doctors, appts: appts.sort((x, y) => x.time.localeCompare(y.time)), week, recent: await lrange("recent", 12), now: hhmm(localNow().getUTCHours() * 60 + localNow().getUTCMinutes()) };
+  },
+  async apptset(req) {
+    requireStaff(req);
+    const a = await one("appt", clean(req.body.id, 30)), s = req.body.status;
+    if (!a) throw new Bad("Booking not found.", 404);
+    if (!["confirmed", "checked_in", "seen", "no_show", "cancelled"].includes(s)) throw new Bad("Bad status.");
+    a.status = s; a.log.push({ at: nowISO(), text: { confirmed: "Reopened", checked_in: "Checked in", seen: "Seen by doctor", no_show: "Did not attend", cancelled: "Cancelled by hospital" }[s] });
+    if (s === "checked_in") a.arrivedAt = nowISO();
+    await put("appt", a);
+    if (s === "cancelled") { await redis("DEL", `slot:${a.doctorId}:${a.date}:${a.time}`); await sendMsg(a.phone, `${HOSPITAL}: your appointment ${niceDate(a.date)} at ${t12(a.time)} has been cancelled. Please call us to rebook.`); }
+    return { appt: a };
+  },
+  async deskbook(req) { requireStaff(req); return { appt: await makeAppt(req, req.body || {}, "desk") }; },
+  async block(req) {
+    requireStaff(req);
+    if (!docById(req.body.doctorId) || !isDate(req.body.date)) throw new Bad("Bad request.");
+    await redis(req.body.on ? "SADD" : "SREM", "block:" + req.body.doctorId, req.body.date);
+    return { ok: true };
+  }
+};
+
 /* ---------------- actions ---------------- */
 const actions = {
   /* ---- patient account ---- */
@@ -254,6 +383,8 @@ const actions = {
   },
   async status(req) {
     if (!(await rateOk("st:" + ip(req), 30, 3600))) throw new Bad("Too many tries. Please call the hospital.", 429);
+    const bid = await redis("GET", "bk:" + clean(req.query.code, 12).toUpperCase()), ba = bid && (await one("appt", bid));
+    if (ba) { const d = docById(ba.doctorId) || {}; return { label: `Appointment with ${d.name}`, status: ba.status, when: `${niceDate(ba.date)} at ${t12(ba.time)}`, at: ba.createdAt, assignee: "" }; }
     const id = await redis("GET", "code:" + clean(req.query.code, 12).toUpperCase()), r = id && (await one("req", id));
     if (!r) throw new Bad("We could not find that reference. Check the code in your text message.", 404);
     return { label: r.label, status: r.status, when: r.when, at: r.at, assignee: r.assignee };
@@ -350,6 +481,11 @@ const actions = {
   async cron(req) { // once a day: a morning list of today's medicines
     if (env.CRON_SECRET && req.headers.authorization !== "Bearer " + env.CRON_SECRET) throw new Bad("Forbidden", 403);
     let sent = 0;
+    for (const x of await dayAppts(dayStr(1))) if (x.status === "confirmed" && !x.reminded) {
+      await sendMsg(x.phone, `${HOSPITAL}: reminder — ${x.name} sees ${docById(x.doctorId).name} tomorrow at ${t12(x.time)}. Booking code ${x.code}.`);
+      x.reminded = true; await put("appt", x); sent++;
+    }
+    for (const x of await dayAppts(dayStr(-1))) if (x.status === "confirmed") { x.status = "no_show"; await put("appt", x); }
     for (const acct of await many("acct", "medusers")) {
       if (!(acct.meds || []).length) continue;
       const lines = acct.meds.map(m => `${m.name} at ${m.times.map(t12).join(", ")}`).join("; ");
@@ -362,7 +498,7 @@ const actions = {
 
 module.exports = async (req, res) => {
   try {
-    const fn = actions[req.query.a];
+    const fn = actions[req.query.a] || apptActions[req.query.a];
     if (!fn) throw new Bad("Unknown action.", 404);
     if (typeof req.body === "string") { try { req.body = JSON.parse(req.body); } catch (e) { req.body = {}; } }
     req.body = req.body || {};

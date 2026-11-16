@@ -18,21 +18,13 @@
 
   fill("[data-name]", H.name);
   fill("#st-dept", DATA.departments.length); fill("#w-dept", DATA.departments.length);
-  fill("#st-home", DATA.services.length); fill("#w-home", DATA.services.length);
-
-  // Real photos replace the drawings automatically when these files exist:
-  //   images/hero.png (doctor, ideally a cut-out) · images/doctors.png (second doctor) · images/hospital.jpg (building or ward)
-  const swap = (src, fn) => { const im = new Image(); im.onload = () => fn(im); im.src = src; };
-  swap("images/hero.png", im => { im.alt = "One of our doctors"; $("#hero-figure").replaceChildren(im); });
-  swap("images/doctors.png", im => { im.alt = "Our medical staff"; $("#why-figure").replaceChildren(im); });
-  swap("images/hospital.jpg", im => { const t = $("#tour"); t.style.backgroundImage = `url(${im.src})`; t.classList.add("has"); });
+  fill("#st-home", DATA.services.length); fill("#w-docs", DATA.doctors.length); fill("#w-home", DATA.services.length);
 
   const cards = DATA.departments.map((d, i) => `<article class="svc"><span class="num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span><h3>${svgIcon(d.icon)}${esc(d.name)}</h3><p>${esc(d.blurb)}</p><div class="links"><a href="#appointment" data-dept="${esc(d.name)}">Make an appointment</a><a href="#ask">Ask</a></div></article>`);
   cards.splice(1, 0, `<article class="svc feature"><span class="num" aria-hidden="true">${esc(H.name)}</span><p>From a first consultation and tests to treatment, with care and attention to detail.</p></article>`);
   cards.push(`<article class="svc wide"><h3>Not sure which department you need? Start with General medicine, or ask a nurse first.</h3><div class="cta"><a class="btn" href="#appointment">Book appointment <span class="ico">${svgIcon("arrow")}</span></a><a class="btn white" href="#ask">Ask a nurse <span class="ico">${svgIcon("chat")}</span></a></div></article>`);
   $("#svcs").innerHTML = cards.join("");
-  $("#svcs").addEventListener("click", e => { const x = e.target.closest("[data-dept]"); if (x) $("#a-dept").value = x.dataset.dept; });
-  $("#a-dept").innerHTML = `<option value="">Choose a department</option>` + DATA.departments.map(d => `<option>${esc(d.name)}</option>`).join("");
+  $("#svcs").addEventListener("click", e => { const x = e.target.closest("[data-dept]"); if (x && window.Booking) Booking.start(x.dataset.dept); });
   $("#hc-choice").innerHTML = DATA.services.map((s, i) => `<label><input type="radio" name="svc" value="${s.id}" ${i === 0 ? "checked" : ""}><span>${esc(s.name)}<span>${esc(s.blurb)}</span></span></label>`).join("");
 
   const val = id => $("#" + id).value.trim();
@@ -45,7 +37,6 @@
   }
   const done = r => `<b>Thank you. We have your request.</b>${esc(r.label)}. We will call you to confirm.<b class="code">${esc(r.code)}</b>Keep this reference code. You can use it under “Check my request”.`;
 
-  $("#f-appt").addEventListener("submit", e => { e.preventDefault(); send(e.target, async () => done(await api("pubrequest", { type: "appointment", name: val("a-name"), phone: val("a-phone"), dept: val("a-dept"), when: val("a-when"), note: val("a-note") }))); });
   $("#f-home").addEventListener("submit", e => { e.preventDefault(); send(e.target, async () => done(await api("pubrequest", { type: ($("input[name=svc]:checked") || {}).value, name: val("h-name"), phone: val("h-phone"), address: val("h-addr"), note: val("h-note") }))); });
   $("#f-ask").addEventListener("submit", e => { e.preventDefault(); send(e.target, async () => { await api("pubask", { name: val("q-name"), phone: val("q-phone"), text: val("q-text") }); return "<b>Thank you.</b> A nurse will reply by phone or text message."; }); });
   $("#status").addEventListener("submit", async e => {

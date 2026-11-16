@@ -12,23 +12,7 @@
 </head>
 <body>
 
-<!-- Placeholder doctor drawing, used until real photos are added (see README) -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <symbol id="doctor" viewBox="0 0 400 470">
-    <path d="M22 470C22 356 84 304 158 286l42 46 42-46c74 18 136 70 136 184z" fill="#fff"/>
-    <path d="M158 286l42 62 42-62-20-18h-44z" fill="#A9C4FF"/>
-    <path d="M158 286l42 62-34 40-36-86z" fill="#E9EFFF"/><path d="M242 286l-42 62 34 40 36-86z" fill="#E9EFFF"/>
-    <path d="M176 232h48v46q-24 26-48 0z" fill="#7B4A30"/>
-    <ellipse cx="200" cy="166" rx="64" ry="76" fill="#8E5A3C"/>
-    <path d="M134 168c-10-78 36-100 66-100s76 22 66 100c-6-34-26-58-66-58s-60 24-66 58z" fill="#15151C"/>
-    <circle cx="176" cy="176" r="5" fill="#15151C"/><circle cx="224" cy="176" r="5" fill="#15151C"/>
-    <path d="M178 204q22 18 44 0" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
-    <path d="M160 296c-16 62 14 96 40 96s58-30 40-96" fill="none" stroke="#14224A" stroke-width="7" stroke-linecap="round"/>
-    <path d="M200 392v28" stroke="#14224A" stroke-width="7" stroke-linecap="round"/>
-    <circle cx="200" cy="434" r="16" fill="#14224A"/><circle cx="200" cy="434" r="7" fill="#C9D9FF"/>
-    <rect x="270" y="372" width="54" height="34" rx="6" fill="#E9EFFF"/><rect x="278" y="380" width="24" height="5" rx="2.500" fill="#2563EB"/><rect x="278" y="390" width="36" height="4" rx="2" fill="#B9C9F0"/>
-  </symbol>
-</defs></svg>
+
 
 <main id="top">
   <section class="hero wrap">
@@ -48,6 +32,7 @@
           <a class="btn" href="#appointment">Book appointment <span class="ico"><svg><use href="#i-user"/></svg></span></a>
           <p><b>We treat</b> not only symptoms. <b>We care</b> about each person.</p>
         </div>
+        <p class="next-free"><i></i><span id="hero-next">Checking the next free appointment…</span></p>
         <div class="proud">
           <div class="tile" id="tour" aria-hidden="true"><small>Our hospital</small></div>
           <div class="stats">
@@ -58,7 +43,7 @@
           </div>
         </div>
       </div>
-      <div class="hero-right">
+      <div class="hero-right" role="img" aria-label="One of our doctors in the hospital corridor">
         <div class="rtop">
           <span class="addr"><svg><use href="#i-pin"/></svg><span data-address>Hospital address</span></span>
           <a class="ico dark" data-tel href="#contact" aria-label="Call the hospital"><svg><use href="#i-phone"/></svg></a>
@@ -71,10 +56,10 @@
         </div>
         <div class="rfoot"><span>Emergency? Call or come<br>straight in, <b>day or night</b>.</span><a class="ico" data-tel-em href="#contact" aria-label="Call emergency" style="color:var(--red)"><svg><use href="#i-siren"/></svg></a></div>
       </div>
-      <div class="figure" id="hero-figure"><svg viewBox="0 0 400 470" role="img" aria-label="A doctor"><use href="#doctor"/></svg></div>
-      <span class="chip c1">Open 24 hours</span>
-      <span class="chip c2">Experienced</span>
-      <span class="chip c3">Care at home</span>
+      
+      <span class="chip c1">Experienced</span>
+      <span class="chip c2">Open 24 hours</span>
+      <span class="chip c3">Book online</span>
     </div>
   </section>
 
@@ -82,7 +67,7 @@
     <div class="state">
       <p class="tag" data-full>Haven Hospital</p>
       <h2>We combine modern <i aria-hidden="true"></i> <span>medicine with a human approach so every patient</span> feels confident and calm.</h2>
-      <p>You can book, ask a question or request care at home right here. <b>No account or password needed.</b></p>
+      <p>Pick your doctor and a free time and you are booked instantly. <b>No account or password needed.</b></p>
       <a class="btn" href="#appointment">Book appointment <span class="ico"><svg><use href="#i-arrow"/></svg></span></a>
     </div>
   </section>
@@ -100,7 +85,7 @@
       <div class="why-art">
         <h2>Why<br>choose us</h2>
         <p class="by">PROVIDED BY: licensed medical staff</p>
-        <div class="figure" id="why-figure"><svg viewBox="0 0 400 470" role="img" aria-label="A doctor"><use href="#doctor"/></svg></div>
+        
         <span class="chip c1">Qualified doctors</span>
         <span class="chip c2">On-site laboratory</span>
         <span class="chip c3">Nurses who visit you</span>
@@ -110,36 +95,31 @@
         <p><b>24<em>/7</em></b><strong>Emergency department</strong><span>Open every hour of every day, including holidays.</span></p>
         <p><b><span id="w-dept">8</span><em>+</em></b><strong>Departments</strong><span>From family medicine to laboratory and pharmacy.</span></p>
         <p><b><span id="w-home">4</span></b><strong>Services at your home</strong><span>Nurse visits, lab samples, delivery and ambulance.</span></p>
-        <p><b>0</b><strong>Accounts needed</strong><span>Book, ask and track a request with just your phone number.</span></p>
+        <p><b id="w-docs">9</b><strong>Doctors you can book online</strong><span>See their real free times and get confirmed instantly.</span></p>
       </div>
     </div>
   </section>
 
   <section class="sec wrap" id="appointment">
-    <div class="two">
-      <div class="panel blue">
+    <div class="booker">
+      <aside class="bk-side">
         <p class="tag" style="color:#DCE7FF">{ Appointments }</p>
         <h2>Book an<br>appointment</h2>
-        <p>Fill in the short form and our front desk calls you to confirm the day and time.</p>
-        <ol class="steps">
-          <li><p><b>Send the form</b><span>Patient's name, phone and department</span></p></li>
-          <li><p><b>We call you</b><span>To agree the day and time</span></p></li>
-          <li><p><b>Come in</b><span>Bring your hospital and NHIS or insurance card</span></p></li>
-        </ol>
-      </div>
-      <form class="panel form" id="f-appt" novalidate>
-        <div class="row2">
-          <div class="field"><label for="a-name">Patient's full name</label><input id="a-name" autocomplete="name" required></div>
-          <div class="field"><label for="a-phone">Phone number</label><input id="a-phone" type="tel" inputmode="tel" autocomplete="tel" required></div>
-        </div>
-        <div class="row2">
-          <div class="field"><label for="a-dept">Department</label><select id="a-dept" required></select></div>
-          <div class="field"><label for="a-when">Preferred day <span>(optional)</span></label><input id="a-when" placeholder="e.g. Thursday morning"></div>
-        </div>
-        <div class="field"><label for="a-note">What is the problem? <span>(optional)</span></label><textarea id="a-note"></textarea></div>
-        <div class="out" aria-live="polite"></div>
-        <button class="btn" style="align-self:flex-start">Send request <span class="ico"><svg><use href="#i-arrow"/></svg></span></button>
+        <p>Choose a real time with a real doctor. Your booking is confirmed straight away, no account needed.</p>
+        <ol class="bk-steps" id="bk-steps"></ol>
+        <div class="bk-sum" id="bk-sum" hidden></div>
+        <p class="bk-live"><i></i><span id="bk-live">Checking free times…</span></p>
+      </aside>
+      <div class="bk-main" id="bk" aria-live="polite"></div>
+    </div>
+    <div class="manage" id="manage">
+      <div><p class="tag">{ Already booked? }</p><h3>Change or cancel my appointment</h3></div>
+      <form class="inline-form" id="f-manage" novalidate>
+        <div class="field"><label for="m-code">Booking code</label><input id="m-code" autocomplete="off" style="text-transform:uppercase;letter-spacing:.08em" required></div>
+        <div class="field"><label for="m-4">Last 4 digits of your phone</label><input id="m-4" inputmode="numeric" maxlength="4" autocomplete="off" required></div>
+        <button class="btn plain">Find my booking</button>
       </form>
+      <div class="out" id="m-out" aria-live="polite"></div>
     </div>
   </section>
 
@@ -192,7 +172,7 @@
         <p class="tag">Not for emergencies. A nurse replies by phone or text message.</p>
       </form>
       <form class="panel form" id="status" novalidate>
-        <div><p class="tag">{ Check my request }</p><h2 style="margin-top:8px">Where has it reached?</h2></div>
+        <div><p class="tag">{ Check my home-care request }</p><h2 style="margin-top:8px">Where has it reached?</h2></div>
         <div class="field"><label for="s-code">Reference code <span>(from our text message)</span></label><input id="s-code" autocomplete="off" style="text-transform:uppercase;letter-spacing:.08em" required></div>
         <div class="out" aria-live="polite"></div>
         <button class="btn line plain" style="align-self:flex-start">Check status</button>
@@ -218,7 +198,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div><p class="big"><span data-name>Haven</span><br>Hospital</p><p style="margin-top:14px;color:#DCE7FF">Emergency department open 24 hours, every day.</p></div>
-      <div><h3>Patients</h3><ul><li><a href="#appointment">Book an appointment</a></li><li><a href="#homecare">Care at home</a></li><li><a href="#ask">Ask a nurse</a></li><li><a href="#status">Check my request</a></li></ul></div>
+      <div><h3>Patients</h3><ul><li><a href="#appointment">Book an appointment</a></li><li><a href="#homecare">Care at home</a></li><li><a href="#ask">Ask a nurse</a></li><li><a href="#manage">Change my appointment</a></li><li><a href="#status">Check my request</a></li></ul></div>
       <div><h3>Hospital</h3><ul><li><a href="#services">Services</a></li><li><a href="#visitors">Patients &amp; visitors</a></li><li><a href="app.html">My Care sign-in</a></li><li><a href="team.html">Staff sign-in</a></li></ul></div>
       <div><h3>Contact</h3><ul><li data-address></li><li data-phone-long></li><li data-email></li></ul></div>
     </div>
@@ -234,5 +214,6 @@
 <script src="data.js"></script>
 <script src="common.js"></script>
 <script src="index.js"></script>
+<script src="booking.js"></script>
 </body>
 </html>

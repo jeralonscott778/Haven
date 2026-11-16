@@ -435,3 +435,46 @@ svg{display:block}
 .box .box-head .pill.dark{background:var(--green-d);color:#fff}
 .greet .cloud{right:7%!important;top:16%!important;width:46px!important;height:46px!important}
 @media (max-width:560px){.hero{min-height:560px}.hero::before{right:10%;bottom:8%}}
+
+/* ---------- staff schedule ---------- */
+.sch-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.sch-top h2{font-size:26px}
+.sch-ctl{display:flex;gap:8px;flex-wrap:wrap}
+.sch-in{height:44px;border-radius:999px;border:0;background:var(--bg);padding:0 16px;font:400 15px "Outfit",sans-serif;color:var(--ink)}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.kpi{background:var(--bg);border-radius:18px;padding:14px 16px}
+.kpi b{display:block;font-size:30px;font-weight:400;line-height:1.1}
+.kpi small{color:var(--muted);font-size:13.5px}
+.kpi.ci b{color:#B45309}.kpi.se b{color:#15803D}.kpi.ns b{color:var(--red)}.kpi.fr b{color:var(--green)}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.week button{background:var(--bg);border-radius:14px;padding:8px 6px;display:flex;flex-direction:column;align-items:center;line-height:1.2}
+.week small{font-size:12px;color:var(--muted)}
+.week b{font-size:20px;font-weight:500}
+.week button[aria-pressed="true"]{background:var(--green);color:#fff}
+.week button[aria-pressed="true"] small{color:#DCE7FF}
+.legend2{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:13px;color:var(--muted)}
+.legend2 i{width:12px;height:12px;border-radius:4px;display:inline-block;margin-right:-6px}
+.sched-wrap{overflow-x:auto;border-radius:16px;border:1px solid var(--line)}
+.sched{border-collapse:separate;border-spacing:0;width:100%;min-width:640px;font-size:14px}
+.sched th,.sched td{padding:5px;border-bottom:1px solid var(--line);border-left:1px solid var(--line);vertical-align:top}
+.sched thead th{position:sticky;top:0;background:#fff;text-align:left;font-weight:500;font-size:14px;padding:10px;min-width:150px}
+.sched thead th small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.sched tbody th{position:sticky;left:0;background:#fff;font-weight:500;white-space:nowrap;padding:12px 10px;border-left:0;z-index:1}
+.sched thead th:first-child{left:0;z-index:2;min-width:84px;border-left:0}
+.sched td.off{background:repeating-linear-gradient(135deg,#F4F6FB 0 6px,#fff 6px 12px)}
+.cell{width:100%;min-height:48px;border-radius:10px;text-align:left;padding:7px 10px;display:flex;flex-direction:column;justify-content:center;line-height:1.2;border:1.5px solid transparent}
+.cell b{font-weight:500;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cell small{font-size:12px;opacity:.85}
+.cell.sel{border-color:var(--ink)}
+.s-free{background:#F4F6FB;color:#9AA6C4;align-items:center;font-size:20px}
+.s-free:hover{background:var(--steel-l);color:var(--green)}
+.s-confirmed{background:#E3ECFF;color:#12368F}
+.s-checked_in{background:#FEF3C7;color:#92400E}
+.s-seen{background:#DCFCE7;color:#166534}
+.s-no_show{background:#FEE2E2;color:#991B1B}
+.legend2 .s-free{background:#F4F6FB;box-shadow:inset 0 0 0 1px var(--line)}
+.cell.new{animation:pop 1.6s ease-out 3}
+@keyframes pop{0%{box-shadow:0 0 0 0 rgba(37,99,235,.55)}100%{box-shadow:0 0 0 12px rgba(37,99,235,0)}}
+@media (max-width:900px){.kpis{grid-template-columns:repeat(3,1fr)}.week{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:560px){.kpis{grid-template-columns:1fr 1fr}.sch-top h2{font-size:22px}}
+@media (prefers-reduced-motion:reduce){.cell.new{animation:none}}

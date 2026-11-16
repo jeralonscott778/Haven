@@ -1,12 +1,16 @@
 # Version 3 — care at home (readings, medicines, home services, nurse chat)
 
+Online booking (no account): patients pick a department, a doctor and a real free time, and are confirmed
+instantly with a booking code by text. They can move or cancel it with that code. Staff see every booking
+live on the Appointments board in `team.html` (check in, seen, no-show, cancel, book walk-ins, doctor leave).
+Doctors, their working days and hours are in `data.js` (sample names — replace with the real ones).
+
 Pages
-- `index.html` + `site.css`  public hospital site. Appointments, care at home, ask a nurse and
+- `index.html` + `site.css` + `booking.js`  public hospital site. Appointments, care at home, ask a nurse and
   request tracking all work here WITHOUT signing in.
-- Photos: the home page shows a drawn doctor until you add real photos. Create an `images` folder and save:
-  `images/hero.png` (main doctor, ideally a cut-out with transparent background),
-  `images/doctors.png` (doctor for the "Why choose us" panel), `images/hospital.jpg` (building or ward).
-  They replace the drawings automatically.
+- Photos live in `images/` (hero.jpg, team.jpg, consult.jpg, and dr-*.jpg headshots). They are stock-style
+  images supplied for the pitch: replace them with the hospital's own photos and check the licence of any
+  stock image before launch.
 - `app.html`    optional "My Care" record for regular patients (phone number + 6-digit PIN)
 - `team.html`   care-team dashboard (staff PIN)
 - `api/app.js`  the whole backend, one Vercel function
